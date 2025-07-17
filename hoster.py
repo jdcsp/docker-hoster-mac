@@ -68,7 +68,7 @@ def get_container_data(dockerClient, container_id):
     info = dockerClient.inspect_container(container_id)
     container_hostname = info["Config"]["Hostname"]
     container_name = info["Name"].strip("/")
-    container_ip = info["NetworkSettings"]["IPAddress"]
+    container_ip = "127.0.0.1" if os.getenv("FORCE_LOCALHOST", "0") == "1" else info["NetworkSettings"]["IPAddress"]
     if info["Config"]["Domainname"]:
         container_hostname = container_hostname + "." + info["Config"]["Domainname"]
     
@@ -80,7 +80,7 @@ def get_container_data(dockerClient, container_id):
             continue
 
         result.append({
-                "ip": values["IPAddress"] , 
+                "ip": "127.0.0.1" if os.getenv("FORCE_LOCALHOST", "0") == "1" else values["IPAddress"], 
                 "name": container_name,
                 "domains": set(values["Aliases"] + [container_name, container_hostname])
             })
