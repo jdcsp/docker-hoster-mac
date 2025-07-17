@@ -2,6 +2,10 @@
 
 A simple "etc/hosts" file injection tool to resolve names of local Docker containers on the host.
 
+> **This fork implements the change describe by Tatikoma in issue 8 to make it work on Mac.**
+> 
+> Make sure to add your user to the /etc/hosts access list: `sudo chmod +a "$USER allow read,write" /etc/hosts`
+
 hoster is intended to run in a Docker container:
 
     docker run -d \
