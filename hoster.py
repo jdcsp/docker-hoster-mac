@@ -39,7 +39,7 @@ def main():
 
     #listen for events to keep the hosts file updated
     for e in events:
-        if e["Type"]!="container": 
+        if e["Type"]!="container" or "status" not in e:
             continue
         
         status = e["status"]
